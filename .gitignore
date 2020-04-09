@@ -1,0 +1,7 @@
+### Python venv ###
+/scrapeVenv
+
+### JupyterNotebook ###
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
