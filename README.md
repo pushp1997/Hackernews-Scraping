@@ -2,8 +2,8 @@
 
 ### Business Requirements:
 
-1. Scrape TheHackernews.com and store the result (Desription, Image, Title, Url) in mongo db
-2. Maintain two relations - 1 with the url and title of the blog and other one with url and its meta data like (Desription, Image, Title, Author)
+1. Scrape TheHackernews.com and store the result (Description, Image, Title, Url) in mongo db
+2. Maintain two relations - 1 with the url and title of the blog and other one with url and its meta data like (Description, Image, Title, Author)
 
 ### Requirements:
 
