@@ -25,6 +25,9 @@ mypy = "^0.910"
 black = "^22.3.0"
 types-requests = "^2.27.30"
 
+[tool.poetry.scripts]
+hnscraper = "hnscraper.main:main"
+
 [build-system]
 requires = ["setuptools>=42.0", "wheel"]
 build-backend = "setuptools.build_meta"
