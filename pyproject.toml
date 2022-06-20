@@ -23,6 +23,7 @@ pytest = "^6.2.5"
 pytest-cov = "^2.12.1"
 mypy = "^0.910"
 black = "^22.3.0"
+types-requests = "^2.27.30"
 
 [build-system]
 requires = ["setuptools>=42.0", "wheel"]
