@@ -15,3 +15,6 @@ __pycache__/
 ### Coverage ###
 .coverage
 .coverage/
+
+### MyPy ###
+.mypy_cache/
