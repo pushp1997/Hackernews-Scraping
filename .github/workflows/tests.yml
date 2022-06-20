@@ -25,6 +25,7 @@ jobs:
           poetry-version: ${{ matrix.poetry-version }}
       - name: Install dependencies
         run: |
-          poetry install tox tox-gh-actions
+          poetry add --dev tox-gh-actions
+          poetry install
       - name: Test with tox
         run: tox
