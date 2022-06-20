@@ -26,7 +26,7 @@ class HackerNewsScraper:
         self.posts_url_others_data: List[str] = []
 
     @staticmethod
-    def link_to_soup(link: str) -> (BeautifulSoup | None):
+    def link_to_soup(link: str) -> ("BeautifulSoup | None"):
         """This method returns the soup of a link"""
         logger: Logger = getLogger(__name__)
         try:
