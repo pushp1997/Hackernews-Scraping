@@ -1,5 +1,5 @@
 # Hackernews-Scraping
-![Tests](https://github.com/mCodingLLC/SlapThatLikeButton-TestingStarterProject/actions/workflows/tests.yml/badge.svg)
+![Tests](https://github.com/pushp1997/Hackernews-Scraping/actions/workflows/tests.yml/badge.svg)
 ### Business Requirements:
 
 1. Scrape TheHackernews.com and store the result (Description, Image, Title, Url) in mongo db
