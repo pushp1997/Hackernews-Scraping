@@ -5,3 +5,13 @@
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
 
+### Tox ###
+.tox/
+*.egg-info/
+
+### Pycache ###
+__pycache__/
+
+### Coverage ###
+.coverage
+.coverage/
