@@ -7,7 +7,7 @@ License: MIT
 import json
 from logging import Logger, getLogger
 from pathlib import Path
-from typing import List
+from typing import List, Dict
 
 import requests
 from bs4 import BeautifulSoup
@@ -21,38 +21,38 @@ class HackerNewsScraper:
 
     def __init__(self, pages_to_scrape: int = 5) -> None:
         self.pages_to_scrape = pages_to_scrape
-        self.page_soups: List[str] = []
-        self.posts_url_title_data: List[str] = []
-        self.posts_url_others_data: List[str] = []
+        self.page_soups: List[BeautifulSoup] = []
+        self.posts_url_title_data: List[Dict[str, str]] = []
+        self.posts_url_others_data: List[Dict[str, str]] = []
 
     @staticmethod
-    def link_to_soup(link: str) -> ("BeautifulSoup | None"):
+    def link_to_soup(link: str) -> BeautifulSoup:
         """This method returns the soup of a link"""
         logger: Logger = getLogger(__name__)
         try:
             response = requests.get(link, timeout=1)
             if response.ok:
                 return BeautifulSoup(response.text, "html.parser")
-            return None
+            return BeautifulSoup()
         except requests.exceptions.Timeout:
-            logger.info("Request timed out for %s, skipping this page..", link, exc_info=1)
-            return None
+            logger.info("Request timed out for %s, skipping this page..", link, exc_info=True)
+            return BeautifulSoup()
         except requests.exceptions.ConnectionError as err:
             logger.info(
                 "Error occured while connecting to the page for %s, skipping this page..",
                 link,
-                exc_info=1,
+                exc_info=True,
             )
             logger.error(err)
-            return None
+            return BeautifulSoup()
         except requests.exceptions.RequestException as err:
             logger.info(
                 "Some error occured while requesting the page for %s, skipping this page..",
                 link,
-                exc_info=1,
+                exc_info=True,
             )
             logger.error(err)
-            return None
+            return BeautifulSoup()
 
     def scrape(self) -> None:
         """This methos scrapes the pages and creates soup for all pages"""
@@ -92,9 +92,8 @@ class HackerNewsScraper:
     def save_to_mongo(self):
         """This method saves the extracted data to MongoDB"""
         mongodb_uri = input("Enter the mongoDbURI: ")
-        client = MongoClient(
-            mongodb_uri
-        )  # for users running mongo server on local machine: 'mongodb://localhost:27017/'
+        # for users running mongo server on local machine: 'mongodb://localhost:27017/'
+        client = MongoClient(mongodb_uri)  # type: ignore
         # Getting the database client
         database = client["hackernews"]
 
