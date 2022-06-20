@@ -1,5 +1,5 @@
 import pytest
-from hnscraper.app import HackerNewsScraper
+from hnscraper.hacker_news_scraper import HackerNewsScraper
 
 
 def test_class_initialization():

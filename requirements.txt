@@ -1,6 +1,0 @@
-requests
-BeautifulSoup4
-pymongo
-jupyterlab
-notebook
-pathlib

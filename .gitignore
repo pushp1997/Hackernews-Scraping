@@ -18,3 +18,6 @@ __pycache__/
 
 ### MyPy ###
 .mypy_cache/
+
+### Build ###
+dist/
