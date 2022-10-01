@@ -2,8 +2,14 @@
 ![Tests](https://github.com/pushp1997/Hackernews-Scraping/actions/workflows/tests.yml/badge.svg)
 ### Business Requirements:
 
-1. Scrape TheHackernews.com and store the result (Description, Image, Title, Url) in mongo db
+1. Scrape TheHackernews.com and store the result (Description, Image, Title, Url)
 2. Maintain two relations - 1 with the url and title of the blog and other one with url and its meta data like (Description, Image, Title, Author)
+
+### Storages Supported:
+
+- [x] MongoDB
+- [x] Json
+- [ ] MySQL (WIP)
 
 ### Requirements:
 
