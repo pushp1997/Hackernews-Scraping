@@ -12,6 +12,7 @@ from typing import List, Dict
 import requests
 from bs4 import BeautifulSoup
 from pymongo import MongoClient
+import pymysql
 
 
 class HackerNewsScraper:
@@ -84,7 +85,7 @@ class HackerNewsScraper:
                     {
                         "url": post["href"],
                         "desc": post.find("div", class_="home-desc").text,
-                        "author": post.find("span").text[1 : len(post.find("span").text) - 1],
+                        "author": post.find("span").text[1: len(post.find("span").text) - 1],
                         "imgSrc": post.find("img")["data-src"],
                     }
                 )
@@ -123,3 +124,49 @@ class HackerNewsScraper:
         with open(output_path, "w", encoding="UTF8") as output_file:
             print(f"Saving to {output_path}.")
             output_file.write(json.dumps(posts_url_data))
+
+    def save_to_sqldb(self):
+        def mysqlconnect():
+            # To connect MySQL database
+            conn = pymysql.connect(
+                host='localhost',
+                user='root',
+                password="Password1!",
+                db='scraper',
+            )
+            return conn
+
+        conn_obj = mysqlconnect()
+        conn_cursor = conn_obj.cursor()
+
+        # DB creation
+        sql_db_create = "create database if not exists scraper;"
+
+        # Use DB created
+        sql_use_db = "use scraper;"
+
+        # create table "urlTitle" to store [urlLink, urlTitle]
+        sql_create_urlTitle_table = "create table if not exists urltitle(\
+          url_title_id int auto_increment primary key,\
+          url_link text not null,\
+          url_title text not null)"
+
+        # create table "urlotherInfo" to store [urlLink, urlTitle, urlAuthor, urlImgSrc]
+        sql_create_urlOtherInfo_table = "create table if not exists urlotherinfo(\
+          id int auto_increment primary key,\
+          url_link text not null,\
+          url_description text not null,\
+          author text not null,\
+          imgsrc text not null)"
+
+        conn_cursor.execute(sql_db_create)
+        conn_cursor.execute(sql_use_db)
+        conn_cursor.execute(sql_create_urlTitle_table)
+        conn_cursor.execute(sql_create_urlOtherInfo_table)
+
+        sql_insert_urlTitle = "insert into urltitle(url_link, url_title) values (%s, %s)"
+        sql_insert_urlOtherInfo = "insert into urlotherinfo(url_link, url_description, author, imgSrc) values (%s, %s, %s, %s)"
+        for url_title, url_other in zip(self.posts_url_title_data, self.posts_url_others_data):
+            conn_cursor.execute(sql_insert_urlTitle, (url_title["url"], url_title["title"]))
+            conn_cursor.execute(sql_insert_urlOtherInfo,
+                                (url_other["url"], url_other["desc"], url_other["author"], url_other["imgSrc"]))
