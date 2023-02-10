@@ -15,6 +15,7 @@ pymongo = "^4.1.1"
 jupyterlab = "^3.4.3"
 notebook = "^6.4.12"
 pathlib = "^1.0.1"
+pymysql = "^1.0.2"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.9.2"
